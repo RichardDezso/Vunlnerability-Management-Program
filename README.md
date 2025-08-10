@@ -60,9 +60,8 @@ In this phase, a meeting with the server team introduces the draft Vulnerability
 
 ## 🗣️ Meeting Summary (Paraphrased)
 **Participants:**
-- **Josh** – Security Policy Lead
-- **Jimmy** – Department Manager
-
+- **Josh** – Cybersecurity and VM Analyst
+- **Jimmy** – Server Team Manager
 **Key Discussion Points:**
 1. **Timeline Concern:**  
    - Original policy required **48-hour remediation** for all critical vulnerabilities.  
@@ -113,9 +112,59 @@ After gathering feedback from the server team, the policy is revised, addressing
 
 The team collaborates with the server team to initiate scheduled credential scans. A compromise is reached to scan a single server first, monitoring resource impact, and using just-in-time Active Directory credentials for secure, controlled access.  
 
-<a href='https://youtu.be/lg068WA4SKM' target="_"><img width="600" alt="image" src="https://github.com/user-attachments/assets/31fe8d0f-636b-475b-8d5a-a2795c183f86"></a>
 
-[YouTube Video: Initial Discovery Scan](https://youtu.be/lg068WA4SKM)
+**Description**  
+Kickoff meeting to align on **weekly credentialed vulnerability scans** of the server estate. We clarified scope, risks, and guardrails for scanning approximately **2,200 assets** and agreed on a safe pilot before full rollout.
+
+---
+
+## 🎯 Objective
+- Begin scheduled credentialed scans without impacting availability.  
+- Address concerns about resource usage and credential security.  
+- Agree on a Just-In-Time access model and a pilot approach.
+
+---
+
+## 🗣️ Meeting Summary (Paraphrased)
+**Participants:**  
+- **Josh** – Cybersecurity and VM Analyst
+- **Jimmy** – Server Team Manager
+
+**Key Points:**  
+1. **Scan plan:** Weekly scans targeting server infrastructure. Estimated **4–6 hours** to scan the environment of ~**2,200 assets**.  
+2. **Credentialed approach:** Scan engine requires **administrative credentials** to log in and validate registry keys, installed software, insecure protocols, and cipher suites.  
+3. **Risk concerns:** Jimmy raised impact and safety concerns: CPU, I/O, and memory utilization, and the risk of broad admin access.  
+4. **Guardrails proposed:**  
+   - Start with **one pilot server**, monitor resource utilization closely.  
+   - Use **Active Directory dedicated scan account**, created up front, **disabled by default**, **enabled only during the scan window**, then **disabled or deprovisioned**.  
+   - Automate provisioning and toggling of the account.  
+5. **Next steps:** Susan to automate account provisioning. Proceed after credentials are ready and the pilot completes successfully.
+
+---
+
+## 🛡️ Agreed Guardrails
+- **Pilot first:** Single-server test, then staged rollout.  
+- **JIT credentials:** Dedicated AD account, disabled outside the scan window.  
+- **Change window:** Run scans in a defined maintenance window.  
+- **Resource safety:** Use safe-check profiles, throttle where supported, and watch CPU, RAM, disk, and network.  
+- **Auditability:** Log who enabled the account, when, and what was scanned.  
+- **Scope control:** Target servers only, exclude fragile systems until validated.
+
+---
+
+## 📌 Outcome & Value
+- Stakeholders agreed to a **safe, credentialed scanning model** with **JIT access**.  
+- A **pilot scan** will validate performance before weekly schedules go live.  
+- Automation reduces standing access and improves audit trails.
+
+---
+
+## 📖 Key Takeaways
+- Credentialed scans give better signal quality, but you need **least privilege and JIT**.  
+- A short **pilot** builds confidence and surfaces tuning needs early.  
+- Clear **operational guardrails** reduce friction and speed adoption.
+
+---
 
 ---
 
