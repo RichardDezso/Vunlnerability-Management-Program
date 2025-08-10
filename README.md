@@ -50,6 +50,51 @@ This phase focuses on drafting a Vulnerability Management Policy as a starting p
 
 In this phase, a meeting with the server team introduces the draft Vulnerability Management Policy and assesses their capability to meet remediation timelines. Feedback leads to adjustments, like extending the critical remediation window from 48 hours to one week, ensuring collaborative implementation.
 
+---
+
+## 🎯 Objective
+- Finalize vulnerability remediation timelines in a way that balances **security risk reduction** with **operational feasibility**.
+- Gain **stakeholder buy-in** to ensure adoption across all departments.
+
+---
+
+## 🗣️ Meeting Summary (Paraphrased)
+**Participants:**
+- **Josh** – Security Policy Lead
+- **Jimmy** – Department Manager
+
+**Key Discussion Points:**
+1. **Timeline Concern:**  
+   - Original policy required **48-hour remediation** for all critical vulnerabilities.  
+   - Department noted staffing challenges make this unrealistic for initial rollout.
+
+2. **Proposed Adjustment:**  
+   - Extend critical vulnerability SLA to **1 week** by default.  
+   - Reserve 48-hour remediation only for **highly exploitable zero-day vulnerabilities**.
+
+3. **Adoption Period:**  
+   - Departments granted **6-month adjustment period** to adapt to new remediation and patching processes.
+
+4. **Outcome:**  
+   - Agreement reached to amend timelines in policy.  
+   - Stakeholders expressed appreciation for inclusion in decision-making, boosting buy-in.
+
+---
+
+## 📌 Outcome & Value
+- **Operational Realism:** Adjusted policy now matches actual capacity without undermining security.  
+- **Zero-Day Protection:** Maintained rapid response for truly critical threats.  
+- **Stronger Buy-In:** Early involvement of department heads increased policy acceptance.
+
+---
+
+## 📖 Key Takeaways for Security Governance
+- **Engage stakeholders early** to avoid pushback and policy non-compliance.  
+- **Differentiate between all criticals vs. urgent zero-days** for more precise SLAs.  
+- **Include an adoption phase** to allow gradual process maturity.
+
+---
+
 
 
 ---
