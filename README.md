@@ -39,29 +39,30 @@ _**Completion State:**_ a formal policy is enacted, stakeholder buy-in is secure
 
 ---
 
-### Vulnerability Management Policy Draft Creation
+## Vulnerability Management Policy Draft Creation
 
 This phase focuses on drafting a Vulnerability Management Policy as a starting point for stakeholder engagement. The initial draft outlines scope, responsibilities, and remediation timelines, and may be adjusted based on feedback from relevant departments to ensure practical implementation before final approval by upper management.  
 [Draft Policy](https://docs.google.com/document/d/1UPNPnb0mpagaz8XC0avGzvYr9HSTWgi6ZxRaKBsnoIw/edit?usp=drive_link)
 
 ---
 
-### Step 2) Mock Meeting: Policy Buy-In (Stakeholders)
+## Step 2) Mock Meeting: Policy Buy-In (Stakeholders)
 
 In this phase, a meeting with the server team introduces the draft Vulnerability Management Policy and assesses their capability to meet remediation timelines. Feedback leads to adjustments, like extending the critical remediation window from 48 hours to one week, ensuring collaborative implementation.
 
 ---
 
-## 🎯 Objective
+### 🎯 Objective
 - Finalize vulnerability remediation timelines in a way that balances **security risk reduction** with **operational feasibility**.
 - Gain **stakeholder buy-in** to ensure adoption across all departments.
 
 ---
 
-## 🗣️ Meeting Summary (Paraphrased)
+### 🗣️ Meeting Summary (Paraphrased)
 **Participants:**
 - **Josh** – Cybersecurity and VM Analyst
 - **Jimmy** – Server Team Manager
+  
 **Key Discussion Points:**
 1. **Timeline Concern:**  
    - Original policy required **48-hour remediation** for all critical vulnerabilities.  
@@ -80,14 +81,14 @@ In this phase, a meeting with the server team introduces the draft Vulnerability
 
 ---
 
-## 📌 Outcome & Value
+### 📌 Outcome & Value
 - **Operational Realism:** Adjusted policy now matches actual capacity without undermining security.  
 - **Zero-Day Protection:** Maintained rapid response for truly critical threats.  
 - **Stronger Buy-In:** Early involvement of department heads increased policy acceptance.
 
 ---
 
-## 📖 Key Takeaways for Security Governance
+### 📖 Key Takeaways for Security Governance
 - **Engage stakeholders early** to avoid pushback and policy non-compliance.  
 - **Differentiate between all criticals vs. urgent zero-days** for more precise SLAs.  
 - **Include an adoption phase** to allow gradual process maturity.
@@ -96,7 +97,7 @@ In this phase, a meeting with the server team introduces the draft Vulnerability
 
 ---
 
-### Step 3) Policy Finalization and Senior Leadership Sign-Off
+## Step 3) Policy Finalization and Senior Leadership Sign-Off
 
 After gathering feedback from the server team, the policy is revised, addressing aggressive remediation timelines. With final approval from upper management, the policy now guides the program, ensuring compliance and reference for pushback resolution.  
 [Finalized Policy](https://docs.google.com/document/d/1fEdVMewDT9JLc4yxisGJj2uRla3nB51qzpF47_H6tZk/edit?usp=sharing)
@@ -108,7 +109,7 @@ After gathering feedback from the server team, the policy is revised, addressing
 
 ---
 
-### Step 4) Mock Meeting: Initial Scan Permission (Server Team)
+## Step 4) Mock Meeting: Initial Scan Permission (Server Team)
 
 The team collaborates with the server team to initiate scheduled credential scans. A compromise is reached to scan a single server first, monitoring resource impact, and using just-in-time Active Directory credentials for secure, controlled access.  
 
@@ -118,14 +119,14 @@ Kickoff meeting to align on **weekly credentialed vulnerability scans** of the s
 
 ---
 
-## 🎯 Objective
+### 🎯 Objective
 - Begin scheduled credentialed scans without impacting availability.  
 - Address concerns about resource usage and credential security.  
 - Agree on a Just-In-Time access model and a pilot approach.
 
 ---
 
-## 🗣️ Meeting Summary (Paraphrased)
+### 🗣️ Meeting Summary (Paraphrased)
 **Participants:**  
 - **Josh** – Cybersecurity and VM Analyst
 - **Jimmy** – Server Team Manager
@@ -142,7 +143,7 @@ Kickoff meeting to align on **weekly credentialed vulnerability scans** of the s
 
 ---
 
-## 🛡️ Agreed Guardrails
+### 🛡️ Agreed Guardrails
 - **Pilot first:** Single-server test, then staged rollout.  
 - **JIT credentials:** Dedicated AD account, disabled outside the scan window.  
 - **Change window:** Run scans in a defined maintenance window.  
@@ -152,14 +153,14 @@ Kickoff meeting to align on **weekly credentialed vulnerability scans** of the s
 
 ---
 
-## 📌 Outcome & Value
+### 📌 Outcome & Value
 - Stakeholders agreed to a **safe, credentialed scanning model** with **JIT access**.  
 - A **pilot scan** will validate performance before weekly schedules go live.  
 - Automation reduces standing access and improves audit trails.
 
 ---
 
-## 📖 Key Takeaways
+### 📖 Key Takeaways
 - Credentialed scans give better signal quality, but you need **least privilege and JIT**.  
 - A short **pilot** builds confidence and surfaces tuning needs early.  
 - Clear **operational guardrails** reduce friction and speed adoption.
@@ -168,7 +169,7 @@ Kickoff meeting to align on **weekly credentialed vulnerability scans** of the s
 
 ---
 
-### Step 5) Initial Scan of Server Team Assets
+## Step 5) Initial Scan of Server Team Assets
 
 In this phase, an insecure Windows Server is provisioned to simulate the server team's environment. After creating vulnerabilities, an authenticated scan is performed, and the results are exported for future remediation steps.  
 
@@ -181,7 +182,7 @@ In this phase, an insecure Windows Server is provisioned to simulate the server 
 
 ---
 
-### Step 6) Vulnerability Assessment and Prioritization
+## Step 6) Vulnerability Assessment and Prioritization
 
 We assessed vulnerabilities and established a remediation prioritization strategy based on ease of remediation and impact. The following priorities were set:
 
@@ -192,7 +193,7 @@ We assessed vulnerabilities and established a remediation prioritization strateg
 
 ---
 
-### Step 7) Distributing Remediations to Remediation Teams
+## Step 7) Distributing Remediations to Remediation Teams
 
 The server team received remediation scripts and scan reports to address key vulnerabilities. This streamlined their efforts and prepared them for a follow-up review.  
 
@@ -202,7 +203,7 @@ The server team received remediation scripts and scan reports to address key vul
 
 ---
 
-### Step 8) Mock Meeting: Post-Initial Discovery Scan (Server Team)
+## Step 8) Mock Meeting: Post-Initial Discovery Scan (Server Team)
 
 The server team reviewed vulnerability scan results, identifying outdated software, insecure accounts, and deprecated protocols. The remediation packages were prepared for submission to the Change Control Board (CAB). 
 
@@ -212,7 +213,7 @@ The server team reviewed vulnerability scan results, identifying outdated softwa
 
 ---
 
-### Step 9) Mock CAB Meeting: Implementing Remediations
+## Step 9) Mock CAB Meeting: Implementing Remediations
 
 The Change Control Board (CAB) reviewed and approved the plan to remove insecure protocols and cipher suites. The plan included a rollback script and a tiered deployment approach.  
 
@@ -221,7 +222,7 @@ The Change Control Board (CAB) reviewed and approved the plan to remove insecure
 [Meeting Video](https://youtu.be/zOFPkTa9kY8)
 
 ---
-### Step 10 ) Remediation Effort
+## Step 10 ) Remediation Effort
 
 #### Remediation Round 1: Outdated Wireshark Removal
 
