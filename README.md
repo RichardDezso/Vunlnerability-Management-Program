@@ -227,7 +227,7 @@ The Change Control Board (CAB) reviewed and approved the plan to remove insecure
 #### Remediation Round 1: Outdated Wireshark Removal
 
 The server team used a PowerShell script to remove outdated Wireshark. A follow-up scan confirmed successful remediation.  
-[Wireshark Removal Script](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/remediation-wireshark-uninstall.ps1)  
+[Wireshark Removal Script](https://github.com/RichardDezso/Uninstall-Wireshark-Targeted)  
 
 <img width="634" alt="image" src="https://github.com/user-attachments/assets/7b4f9ab2-d230-4458-ac0f-c0ff070ae79a">
 
