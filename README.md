@@ -207,20 +207,197 @@ The server team received remediation scripts and scan reports to address key vul
 
 The server team reviewed vulnerability scan results, identifying outdated software, insecure accounts, and deprecated protocols. The remediation packages were prepared for submission to the Change Control Board (CAB). 
 
-<a href="https://youtu.be/0tjjFewxSNw" target="_"><img width="600" src="https://github.com/user-attachments/assets/03027c66-5f7c-42d0-b6dd-09d053c040b1"/></a>
+# Post-Initial Discovery Scan – Server Team Debrief
 
-[Meeting Video](https://youtu.be/0tjjFewxSNw)
+**Description**  
+Follow-up with the Server Team after the first credentialed pilot scan. We confirmed **no performance impact**, reviewed **top findings** (outdated Wireshark, deprecated TLS/cipher suites, misconfigured Guest account, a few Windows Update items), and aligned on remediation via change control.
+
+---
+
+## 🎯 Objectives
+- Validate that scanning did **not** affect availability or performance.  
+- Prioritize findings and map each to a **repeatable fix**.  
+- Prep remediation packages ahead of the next **Change Control Board (CCB)**.
+
+---
+
+## ✅ What we validated
+- **Scan impact:** No outages, no abnormal CPU/RAM/disk; only expected connection spikes during the window.  
+- **Patch mgmt:** Windows Update is in place; OS/application updates will flow next cycle.  
+
+---
+
+## 🔎 Top findings (pilot sample)
+1. **Outdated Wireshark installs** across several servers.  
+2. **Local Guest account** was a member of **Administrators** on at least one host (should be disabled and non-privileged).  
+3. **Deprecated protocols/ciphers** enabled (TLS 1.0/1.1; medium-strength cipher suites).  
+4. **Informationals:** self-signed host certs; Edge Chromium item likely resolved by patch cycle.
+
+---
+
+## 🛠 Remediation plan (actionable)
+**A) Remove old Wireshark**  
+- Use the repo script: `[Uninstall-Wireshark-Targeted.ps1](https://github.com/RichardDezso/Uninstall-Wireshark-Targeted)`  
+  - Target by version/pattern or set `-MinVersion 4.2.0`.  
+  - Run via Intune/SCCM or remote PS; log to `C:\ProgramData\WiresharkRemediation\remove-wireshark.log`.
+
+**B) Fix Guest account configuration** *(baseline it)*  
+- Ensure the **Guest** local account is **disabled** and **not** in Administrators.  
+  ```powershell
+  Get-LocalUser -Name 'Guest' -ErrorAction SilentlyContinue | Disable-LocalUser
+  Remove-LocalGroupMember -Group 'Administrators' -Member 'Guest' -ErrorAction SilentlyContinue
+
+**C) De-risk protocols and cipher suites**
+
+-   **Disable TLS 1.0/1.1** (server & client) and prefer TLS 1.2/1.3.
+
+-   Enforce modern cipher suites via GPO:\
+    `Computer Configuration → Administrative Templates → Network → SSL Configuration Settings → SSL Cipher Suite Order`.
+
+-   Stage/ring deployments; pilot on a non-critical OU before broad rollout.
+
+**D) Let patch mgmt clear the update items**
+
+-   No custom action unless detections persist after the next cycle; then investigate supersedence/detection logic.
+
+* * * * *
+
+📦 Deliverables (from Security to Server Team)
+----------------------------------------------
+
+-   **Wireshark removal package** (script + detection logic).
+
+-   **Guest account hardening baseline** (disable/deny, group membership check).
+
+-   **TLS/cipher hardening template** (GPO backup or script with rollback).
+
+-   **Validation runbook** with pre/post checks.
+
+* * * * *
+
+🔁 Validation (pre/post checks)
+-------------------------------
+
+-   **Before:** snapshot of versions, Guest membership, TLS/protocol state, cipher order.
+
+-   **After:** rescan + confirm:
+
+    -   Wireshark removed (or ≥ allowed version).
+
+    -   Guest disabled and not privileged.
+
+    -   TLS 1.0/1.1 disabled; only modern suites allowed.
+
+    -   Patch items closed by the next update window.
+
+* * * * *
+
+🚧 Risks & notes
+----------------
+
+-   Some legacy integrations may still negotiate TLS 1.0/1.1---use staged rollout + fallback plan.
+
+-   Confirm **no apps rely on Wireshark/Npcap** before removing Npcap (we're removing Wireshark only by default).
+
+-   Keep exceptions time-boxed with owner + review date.
+
+* * * * *
+
+📅 Next steps
+-------------
+
+-   Build remediation artifacts (Security).
+
+-   Submit CCB change(s) for:
+
+    1.  Wireshark removal, 2) Guest baseline, 3) TLS/cipher hardening (ringed).
+
+-   Execute pilot OU → monitor → expand.
+
+* * * * *
+
 
 ---
 
 ## Step 9) Mock CAB Meeting: Implementing Remediations
 
-The Change Control Board (CAB) reviewed and approved the plan to remove insecure protocols and cipher suites. The plan included a rollback script and a tiered deployment approach.  
+**Description**  
+The Change Control Board (CAB) reviewed and **approved** the plan to harden servers by removing **legacy TLS protocols** and **weak cipher suites**, using a **tiered rollout** and a tested **rollback** path.
 
-<a href="https://youtu.be/zOFPkTa9kY8" target="_"><img width="600" src="https://github.com/user-attachments/assets/07164e63-fbce-471a-b469-29a6d41b7bb8"/></a>
+---
 
-[Meeting Video](https://youtu.be/zOFPkTa9kY8)
+## 🎯 Objectives
+- Reduce crypto risk by eliminating insecure protocol/suite negotiation.
+- Roll out safely in stages with clear rollback and owner accountability.
+- Prove effectiveness through monitoring and a follow-up vulnerability scan.
 
+---
+
+## 🔄 Scope of Change
+- **Disable**: Deprecated TLS versions (e.g., 1.0/1.1) and medium/weak cipher suites.
+- **Keep/Prefer**: Modern protocols and strong cipher suites already supported by the platform.
+- **No app code changes** expected; the host simply refuses legacy handshakes.
+
+---
+
+## 💡 Why it matters
+When legacy options are left enabled, clients and servers can “negotiate down” to them. That’s how otherwise secure systems end up using weak crypto. Removing the legacy options forces secure defaults and aligns with common compliance baselines.
+
+---
+
+## 🚀 Implementation Plan (Tiered)
+1. **Pilot** — Small, low-risk cohort. Monitor closely for 48–72 hours.  
+2. **Wave 1** — Non-critical tiers after pilot green-light.  
+3. **Wave 2** — Remaining servers.  
+4. **Exceptions** — Time-boxed, documented owner, review date.
+
+**Change window:** off-hours. **Reboot required** for protocol changes.  
+**Monitoring:** system health, app connectivity, TLS telemetry, and error rates.
+
+---
+
+## 👥 Roles & Responsibilities
+- **Risk/SecOps**: Design remediation, define success criteria, track metrics.  
+- **Infrastructure**: Deploy changes, monitor rollout, execute rollback if needed.  
+- **Application Owners**: Validate critical paths, approve exceptions, sign off.  
+- **CAB**: Governance, schedule, and final approval.
+
+---
+
+## 📦 Deliverables
+- **Remediation package**: Protocol and cipher hardening with environment-ready settings.  
+- **Rollback plan**: Clear steps to restore prior configuration if required.  
+- **Runbook**: Pre-checks, change steps, post-checks, and communication templates.  
+- **Monitoring plan**: What to watch, thresholds, and who responds.  
+- **Validation plan**: How we confirm risk is closed (see below).
+
+---
+
+## ✅ Validation & Success Criteria
+**Pre-change**  
+- Baseline: current protocol/cipher exposure, key app transactions, and health metrics.
+
+**Post-change**  
+- No TLS 1.0/1.1 exposure observed in scans.  
+- Key applications function normally (no handshake or integration errors).  
+- No sustained uptick in error rates or support tickets.
+
+**Success =** clean re-scan + stable app telemetry + stakeholder sign-off.
+
+---
+
+## ⚠️ Risk Handling
+- **Compatibility**: Pilot first; maintain a temporary exception path with owner and expiry.  
+- **Operational**: Schedule reboots; communicate impact windows in advance.  
+- **Rollback**: Documented, tested, and ready if unexpected issues arise.
+
+---
+
+## 📝 CAB Decision
+- **Outcome**: Approved to proceed with pilot → waves, rollback in place.  
+- **Follow-ups**: Share pilot results at next CAB; submit wave schedules; confirm exception list.
+
+---
 ---
 ## Step 10 ) Remediation Effort
 
