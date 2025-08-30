@@ -414,8 +414,8 @@ The server team used a PowerShell script to remove outdated Wireshark. A follow-
 #### Remediation Round 2: Insecure Protocols & Ciphers
 
 The server team used PowerShell scripts to remediate insecure protocols and cipher suites. A follow-up scan verified successful remediation, and the results were saved for reference.  
-[PowerShell: Insecure Protocols Remediation](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/toggle-protocols.ps1)
-[PowerShell: Insecure Ciphers Remediation](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/toggle-cipher-suites.ps1)
+[PowerShell: Insecure Protocols Remediation](https://github.com/RichardDezso/Set-TlsProtocol)
+[PowerShell: Insecure Ciphers Remediation](https://github.com/RichardDezso/Set-TlsCipherSuites)
 
 <img width="630" alt="image" src="https://github.com/user-attachments/assets/0e96120d-8ec9-4f76-8e42-79c752200010">
 
