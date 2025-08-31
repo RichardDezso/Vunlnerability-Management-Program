@@ -425,7 +425,7 @@ The server team used PowerShell scripts to remediate insecure protocols and ciph
 #### Remediation Round 3: Guest Account Group Membership
 
 The server team removed the guest account from the administrator group. A new scan confirmed remediation, and the results were exported for comparison.  
-[PowerShell: Guest Account Group Membership Remediation](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/toggle-guest-local-administrators.ps1)  
+[PowerShell: Guest Account Group Membership Remediation](https://github.com/RichardDezso/Set-GuestAccountState/tree/main)  
 
 <img width="627" alt="image" src="https://github.com/user-attachments/assets/870a3eac-3398-44fe-91c0-96f3c2578df4">
 
@@ -465,20 +465,5 @@ Key activities in Maintenance Mode include:
 - **Ongoing Communication with Stakeholders**: Maintain open communication with teams responsible for remediation, ensuring efficient coordination.
 
 By maintaining an active vulnerability management process, organizations can stay ahead of emerging threats and ensure long-term security resilience.
-Extension
-Extension Embed
 
-
-
-Actions
-
-Your Business
-
-Settings
-
-Help
-Search Amazon
-
-United States
-Search Amazon
 
